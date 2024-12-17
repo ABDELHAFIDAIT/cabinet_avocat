@@ -1,5 +1,5 @@
-<nav class="py-5 px-5 md:px-10 bg-[#02101f] shadow md:flex md-items-center md:justify-between ">
-    <div class="flex items-center justify-between">
+<nav class="py-5 px-5 md:px-10 bg-[#02101f] shadow md:flex md-items-center md:justify-between">
+    <div class="flex items-center justify-between relative z-[10]">
         <div class="flex items-center gap-2">
             <img class="h-10" src="../assets/img/logo.png" alt="Logo du Site LexAdvisor">
             <h1 class="text-2xl font-semibold">Lex<span class="text-[#01FF70]">Advisor</span></h1>
@@ -9,14 +9,14 @@
         </div>
     </div>
 
-    <ul id="links" class="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-[#02101f] w-full left-0 md:w-auto md:py-0 pb-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
-        <li class="mx-4 my-6 md:my-0 hover:text-[#01FF70] text-xl duration-500 uppercase">
+    <ul id="links" class="md:flex md:items-center z-[0] md:z-auto md:static absolute bg-[#02101f] w-full top-[80px] md:w-auto md:py-0 pb-4 md:pl-0 pl-7 md:opacity-100 opacity-0 left-[-400px] transition-all ease-in duration-500 md:h-auto h-screen">
+        <li class="mx-4 my-6 md:my-0 hover:text-[#01FF70] md:text-lg duration-500 font-medium">
             <a href="#">Home</a>
         </li>
-        <li class="mx-4 my-6 md:my-0 text-xl hover:text-[#01FF70] duration-500 uppercase">
+        <li class="mx-4 my-6 md:my-0 md:text-lg hover:text-[#01FF70] duration-500 font-medium">
             <a href="#">Services</a>
         </li>
-        <li class="mx-4 my-6 md:my-0 text-xl hover:text-[#01FF70] duration-500 uppercase">
+        <li class="mx-4 my-6 md:my-0 md:text-lg hover:text-[#01FF70] duration-500 font-medium">
             <a href="#">Our Lawyers</a>
         </li>
 
