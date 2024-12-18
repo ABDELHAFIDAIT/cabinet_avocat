@@ -36,7 +36,7 @@
                     <a href="./lawyers.php">Our Lawyers</a>
                 </li>
 
-                <a href="./views/login.php"><button class="bg-[#01FF70] text-black font-semibold py-2 px-5 mx-4 rounded-sm duration-500 hover:scale-105 hover:bg-transparent hover:border hover:text-white">
+                <a href="./login.php"><button class="bg-[#01FF70] text-black font-semibold py-2 px-5 mx-4 rounded-sm duration-500 hover:scale-105 hover:bg-transparent hover:border hover:text-white">
                     LOGIN
                 </button></a>
             </ul>
