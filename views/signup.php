@@ -14,7 +14,7 @@
 
 </head>
 <body>
-
+    <!-- BARRE DE NAVIGATION -->
     <nav class="py-5 px-5 md:px-10 bg-[#02101f] shadow md:flex md-items-center md:justify-between">
         <div class="flex items-center justify-between relative z-[10]">
             <div class="flex items-center gap-2">
@@ -28,7 +28,7 @@
 
         <ul id="links" class="md:flex md:items-center z-[0] md:z-auto md:static absolute bg-[#02101f] w-full top-[80px] md:w-auto md:py-0 pb-4 md:pl-0 pl-7 md:opacity-100 opacity-0 left-[-400px] transition-all ease-in duration-500 md:h-auto h-screen">
             <li class="mx-4 my-6 md:my-0 hover:text-[#01FF70] md:text-lg duration-500 font-medium">
-                <a href="#">Home</a>
+                <a href="./index.php">Home</a>
             </li>
             <li class="mx-4 my-6 md:my-0 md:text-lg hover:text-[#01FF70] duration-500 font-medium">
                 <a href="#">Services</a>
@@ -43,9 +43,8 @@
         </ul>
     </nav>
 
-
+    <!-- FORMULAIRE DE SIGN UP -->
     <main>
-        
         <form method="POST" action="" class="max-w-md mx-auto px-5 py-20">
             <!-- CHAMPS NOM & PRENOM -->
             <div class="mb-5 flex gap-5 w-[100%]">
@@ -103,10 +102,9 @@
             </div>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-sm text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">SIGN UP</button>
         </form>
-
     </main>
 
-
+    <!-- PIED DE PAGE -->
     <?php 
         include_once '../includes/footer.php';
     ?>

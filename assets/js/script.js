@@ -17,8 +17,3 @@ selectRole.addEventListener('change', function(){
         infosAvocat.classList.add('hidden');
     }
 });
-
-
-function validerSignup(){
-    
-}

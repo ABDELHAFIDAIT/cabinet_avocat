@@ -14,7 +14,7 @@
 
 </head>
 <body>
-
+    <!-- BARRE DE NAVIGATION -->
     <nav class="py-5 px-5 md:px-10 bg-[#02101f] shadow md:flex md-items-center md:justify-between">
         <div class="flex items-center justify-between relative z-[10]">
             <div class="flex items-center gap-2">
@@ -28,7 +28,7 @@
 
         <ul id="links" class="md:flex md:items-center z-[0] md:z-auto md:static absolute bg-[#02101f] w-full top-[80px] md:w-auto md:py-0 pb-4 md:pl-0 pl-7 md:opacity-100 opacity-0 left-[-400px] transition-all ease-in duration-500 md:h-auto h-screen">
             <li class="mx-4 my-6 md:my-0 hover:text-[#01FF70] md:text-lg duration-500 font-medium">
-                <a href="#">Home</a>
+                <a href="./index.php">Home</a>
             </li>
             <li class="mx-4 my-6 md:my-0 md:text-lg hover:text-[#01FF70] duration-500 font-medium">
                 <a href="#">Services</a>
@@ -43,7 +43,7 @@
         </ul>
     </nav>
 
-
+    <!-- FORMULAIRE DE LOGIN -->
     <main>
         <form method="" action="" class="max-w-sm mx-auto py-20">
             <div class="mb-5">
@@ -65,18 +65,11 @@
         </form>
     </main>
 
-
+    <!-- PIED DE LA PAGE -->
     <?php 
         include_once '../includes/footer.php';
     ?>
 
     <script src="../assets/js/script.js"></script>
-    <script>
-        function Menu(e){
-            let list = document.querySelector('#links');
-
-            e.name === 'menu' ? (e.name = "close", list.classList.add('left-0'), list.classList.add('opacity-100'), document.body.classList.add('overflow-hidden')) : (e.name = "menu" ,list.classList.remove('left-0'), list.classList.remove('opacity-100'), document.body.classList.remove('overflow-hidden'))
-        }
-    </script>
 </body>
 </html>
