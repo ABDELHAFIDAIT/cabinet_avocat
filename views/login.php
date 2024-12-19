@@ -1,3 +1,60 @@
+<?php
+
+    session_start();
+
+    require '../config/db.php';
+
+    if(isset($_POST['login'])){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $requete = "SELECT * FROM users JOIN roles ON users.id_role=roles.id_role WHERE email=?";
+        $stmt = mysqli_prepare($conn,$requete);
+
+        if (!$stmt) {
+            die("Échec de la préparation : " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "s", $email);
+
+        if (mysqli_stmt_execute($stmt)) {
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if ($result && mysqli_num_rows($result) > 0){
+                $user = mysqli_fetch_assoc($result);
+
+                if(password_verify($password,$user['mot_de_passe'])){
+                    $_SESSION['id_user'] = $user['id_user'];
+                    $_SESSION['prenom_user'] = $user['prenom']; 
+                    $_SESSION['nom_user'] = $user['nom'];
+                    $_SESSION['email'] = $user['email'];
+                    $_SESSION['phone'] = $user['phone'];
+                    $_SESSION['role'] = $user['nom_role'];
+
+                    header("Location: ./{$user['nom_role']}_dashboard.php");
+                }else{
+                    echo "<script>alert('Password Incorrect !')</script>";
+                }
+            }else{
+                echo "<script>alert('No Such User in DB !')</script>";
+            }
+
+        } else {
+            echo "Erreur : " . mysqli_stmt_error($stmt);
+        }
+
+        mysqli_stmt_close($stmt);
+        
+    }
+
+    mysqli_close($conn);
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,10 +102,10 @@
 
     <!-- FORMULAIRE DE LOGIN -->
     <main>
-        <form method="" action="" class="max-w-sm mx-auto py-20">
+        <form method="POST" action="" class="max-w-sm mx-auto py-20">
             <div class="mb-5">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                <input type="email" name="email" id="email" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@gmail.com" required />
+                <input type="email" value="" name="email" id="email" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@gmail.com" required />
             </div>
             <div class="mb-5">
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
@@ -61,7 +118,7 @@
                 </div>
                 <a href="#" class="text-purple-400 underline hover:text-purple-600">Forget Password ?</a>
             </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-sm text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">LOGIN</button>
+            <button type="submit" name="login" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-sm text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">LOGIN</button>
         </form>
     </main>
 

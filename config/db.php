@@ -2,7 +2,7 @@
     $db_serever = "localhost";
     $db_username = "root";
     $db_password = "";
-    $db_name = "cabinet_avocat";
+    $db_name = "cabinet_avocats";
 
     $conn = mysqli_connect($db_serever, $db_username, $db_password, $db_name);
 
@@ -12,5 +12,5 @@
 
     mysqli_set_charset($conn, "utf8mb4");
 
-    echo "Connexion Réussie !";
+    echo "<script>alert(Connexion Réussie !)</script>";
 ?>
