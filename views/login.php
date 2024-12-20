@@ -4,10 +4,9 @@
     require '../config/db.php';
 
     if (isset($_POST['login'])) {
-        $email = trim($_POST['email']); // Supprime les espaces inutiles
+        $email = trim($_POST['email']); 
         $password = $_POST['password'];
 
-        // Préparation de la requête SQL
         $requete = "SELECT * FROM users JOIN roles ON users.id_role = roles.id_role WHERE email = ?";
         $stmt = mysqli_prepare($conn, $requete);
 
@@ -15,20 +14,19 @@
             die("Échec de la préparation : " . mysqli_error($conn));
         }
 
-        // Liaison des paramètres
         mysqli_stmt_bind_param($stmt, "s", $email);
 
-        // Exécution de la requête
+        
         if (mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
 
-            // Vérification si l'utilisateur existe
+            
             if ($result && mysqli_num_rows($result) > 0) {
                 $user = mysqli_fetch_assoc($result);
 
-                // Vérification du mot de passe
+                
                 if (password_verify($password, $user['mot_de_passe'])) {
-                    // Initialisation des variables de session
+                    
                     $_SESSION['id_user'] = $user['id_user'];
                     $_SESSION['prenom_user'] = htmlspecialchars($user['prenom']);
                     $_SESSION['nom_user'] = htmlspecialchars($user['nom']);
@@ -36,8 +34,10 @@
                     $_SESSION['phone'] = htmlspecialchars($user['phone']);
                     $_SESSION['role'] = htmlspecialchars($user['nom_role']);
 
-                    // Redirection vers le tableau de bord selon le rôle
-                    header("Location: ./{$user['nom_role']}_dashboard.php");
+
+                    $link_role = $user['nom_role'] . "_dashboard.php";
+                    
+                    header("Location: ./$link_role");
                     exit();
                 } else {
                     echo "<script>alert('Mot de passe incorrect !');</script>";
@@ -49,11 +49,9 @@
             die("Erreur d'exécution : " . mysqli_stmt_error($stmt));
         }
 
-        // Fermeture de la requête préparée
         mysqli_stmt_close($stmt);
     }
 
-    // Fermeture de la connexion
     mysqli_close($conn);
 ?>
 

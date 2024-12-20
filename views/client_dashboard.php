@@ -1,9 +1,12 @@
 <?php
 
-    require_once '../config/auth.php';
+    session_start();
 
-    if(!isAuth('Client')){
-        header('Location: ./index.php');
+    if(isset($_SESSION['id_user']) && isset($_SESSION['role'])){
+        if($_SESSION['role'] == 'Avocat'){
+            header('location: ./index.php');
+            exit;
+        }
     }
 
 ?>
