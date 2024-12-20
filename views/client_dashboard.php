@@ -1,3 +1,15 @@
+<?php
+
+    require_once '../config/auth.php';
+
+    if(!isAuth('Client')){
+        header('Location: ./index.php');
+    }
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

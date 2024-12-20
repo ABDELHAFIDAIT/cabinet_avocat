@@ -1,3 +1,94 @@
+<?php
+
+    require '../config/db.php';
+
+    if (isset($_POST['signup'])) {
+        $prenom = $_POST['prenom'];
+        $nom = $_POST['nom'];
+        $role = $_POST['role'];
+        $email = $_POST['signup_email'];
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $specialite = $_POST['specialite'];
+        $experience = $_POST['experience'];
+        $biographie = $_POST['biography'];
+
+        
+        if (!$prenom || !$nom || !$role || !$email || !$password) {
+            die("Tous les champs requis doivent être remplis !");
+        }
+
+        $get_users = "SELECT email FROM users WHERE email = ?";
+        $get_stmt = mysqli_prepare($conn, $get_users);
+
+        if (!$get_stmt) {
+            die("Erreur de préparation de la requête : " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($get_stmt, "s", $email);
+        mysqli_stmt_execute($get_stmt);
+        $get_result = mysqli_stmt_get_result($get_stmt);
+
+        if ($get_result && mysqli_num_rows($get_result) > 0) {
+            echo "<script>alert('User already exists!')</script>";
+        } else {
+            if ($role === 'Client') {
+                $id_role = 1;
+                $insert_user = "INSERT INTO users(prenom, nom, email, mot_de_passe, id_role) VALUES (?, ?, ?, ?, ?)";
+                $stmt = mysqli_prepare($conn, $insert_user);
+
+                if (!$stmt) {
+                    die("Erreur de préparation : " . mysqli_error($conn));
+                }
+
+                mysqli_stmt_bind_param($stmt, "ssssi", $prenom, $nom, $email, $password, $id_role);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+
+                header('Location: ./login.php');
+            } elseif ($role === 'Avocat') {
+                $id_role = 2;
+                $insert_user = "INSERT INTO users(prenom, nom, email, mot_de_passe, id_role) VALUES (?, ?, ?, ?, ?)";
+                $stmt = mysqli_prepare($conn, $insert_user);
+
+                if (!$stmt) {
+                    die("Erreur de préparation : " . mysqli_error($conn));
+                }
+
+                mysqli_stmt_bind_param($stmt, "ssssi", $prenom, $nom, $email, $password, $id_role);
+
+                if (mysqli_stmt_execute($stmt)) {
+                    $last_avocat_id = mysqli_insert_id($conn);
+                    mysqli_stmt_close($stmt);
+
+                    $insert_infos_avocat = "INSERT INTO infos_avocat(id_avocat, specialite, annee_experience, biographie) VALUES (?, ?, ?, ?)";
+                    $infos_stmt = mysqli_prepare($conn, $insert_infos_avocat);
+
+                    if (!$infos_stmt) {
+                        die("Erreur de préparation : " . mysqli_error($conn));
+                    }
+
+                    mysqli_stmt_bind_param($infos_stmt, "isis", $last_avocat_id, $specialite, $experience, $biographie);
+
+                    if (mysqli_stmt_execute($infos_stmt)) {
+                        mysqli_stmt_close($infos_stmt);
+                        header('Location: ./login.php');
+                    } else {
+                        die("Erreur lors de l'insertion des infos avocat : " . mysqli_error($conn));
+                    }
+                } else {
+                    die("Erreur lors de l'insertion de l'utilisateur : " . mysqli_error($conn));
+                }
+            }
+        }
+
+        mysqli_stmt_close($get_stmt);
+    }
+
+    mysqli_close($conn);
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +191,7 @@
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input type="password" name="password" id="password" class=" outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm  focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" required />
             </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-sm text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">SIGN UP</button>
+            <button type="submit" name="signup" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-sm text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">SIGN UP</button>
         </form>
     </main>
 

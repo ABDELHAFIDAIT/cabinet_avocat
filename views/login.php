@@ -1,56 +1,62 @@
 <?php
-
     session_start();
 
     require '../config/db.php';
 
-    if(isset($_POST['login'])){
-        $email = $_POST['email'];
+    if (isset($_POST['login'])) {
+        $email = trim($_POST['email']); // Supprime les espaces inutiles
         $password = $_POST['password'];
 
-        $requete = "SELECT * FROM users JOIN roles ON users.id_role=roles.id_role WHERE email=?";
-        $stmt = mysqli_prepare($conn,$requete);
+        // Préparation de la requête SQL
+        $requete = "SELECT * FROM users JOIN roles ON users.id_role = roles.id_role WHERE email = ?";
+        $stmt = mysqli_prepare($conn, $requete);
 
         if (!$stmt) {
             die("Échec de la préparation : " . mysqli_error($conn));
         }
 
+        // Liaison des paramètres
         mysqli_stmt_bind_param($stmt, "s", $email);
 
+        // Exécution de la requête
         if (mysqli_stmt_execute($stmt)) {
-
             $result = mysqli_stmt_get_result($stmt);
 
-            if ($result && mysqli_num_rows($result) > 0){
+            // Vérification si l'utilisateur existe
+            if ($result && mysqli_num_rows($result) > 0) {
                 $user = mysqli_fetch_assoc($result);
 
-                if(password_verify($password,$user['mot_de_passe'])){
+                // Vérification du mot de passe
+                if (password_verify($password, $user['mot_de_passe'])) {
+                    // Initialisation des variables de session
                     $_SESSION['id_user'] = $user['id_user'];
-                    $_SESSION['prenom_user'] = $user['prenom']; 
-                    $_SESSION['nom_user'] = $user['nom'];
-                    $_SESSION['email'] = $user['email'];
-                    $_SESSION['phone'] = $user['phone'];
-                    $_SESSION['role'] = $user['nom_role'];
+                    $_SESSION['prenom_user'] = htmlspecialchars($user['prenom']);
+                    $_SESSION['nom_user'] = htmlspecialchars($user['nom']);
+                    $_SESSION['email'] = htmlspecialchars($user['email']);
+                    $_SESSION['phone'] = htmlspecialchars($user['phone']);
+                    $_SESSION['role'] = htmlspecialchars($user['nom_role']);
 
+                    // Redirection vers le tableau de bord selon le rôle
                     header("Location: ./{$user['nom_role']}_dashboard.php");
-                }else{
-                    echo "<script>alert('Password Incorrect !')</script>";
+                    exit();
+                } else {
+                    echo "<script>alert('Mot de passe incorrect !');</script>";
                 }
-            }else{
-                echo "<script>alert('No Such User in DB !')</script>";
+            } else {
+                echo "<script>alert('Aucun utilisateur trouvé avec cet email !');</script>";
             }
-
         } else {
-            echo "Erreur : " . mysqli_stmt_error($stmt);
+            die("Erreur d'exécution : " . mysqli_stmt_error($stmt));
         }
 
+        // Fermeture de la requête préparée
         mysqli_stmt_close($stmt);
-        
     }
 
+    // Fermeture de la connexion
     mysqli_close($conn);
-
 ?>
+
 
 
 
