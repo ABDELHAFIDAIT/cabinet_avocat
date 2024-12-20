@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <a href="#" class="text-purple-200 underline duration-500 hover:text-purple-400">Déconnexion</a>
+                <a href="logout.php" class="text-purple-200 underline duration-500 hover:text-purple-400">Déconnexion</a>
                 <a href="#"><img class="rounded-full border-2 border-[#01FF70] w-14" src="../assets/img/client.jpg" alt="Image du Client"></a>
             </div>
         </nav>
