@@ -40,10 +40,14 @@
                     header("Location: ./$link_role");
                     exit();
                 } else {
-                    echo "<script>alert('Mot de passe incorrect !');</script>";
+                    echo "<script>
+                        alert('Password Incorrecte !');
+                    </script>";
                 }
             } else {
-                echo "<script>alert('Aucun utilisateur trouvé avec cet email !');</script>";
+                echo "<script>
+                        alert('Aucun Client avec cet Email !');
+                    </script>";
             }
         } else {
             die("Erreur d'exécution : " . mysqli_stmt_error($stmt));
@@ -53,6 +57,12 @@
     }
 
     mysqli_close($conn);
+
+
+    if(isset($_SESSION['id_user']) && isset($_SESSION['role'])){
+        header('location: ./home.php');
+        exit;
+    }
 ?>
 
 
@@ -106,14 +116,14 @@
 
     <!-- FORMULAIRE DE LOGIN -->
     <main>
-        <form method="POST" action="" class="max-w-sm mx-auto py-20">
+        <form method="POST" action="" class="max-w-sm mx-auto py-20" id="login-form">
             <div class="mb-5">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                <input type="email" value="" name="email" id="email" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@gmail.com" required />
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email <span class="pl-5 text-red-500 font-light hidden" id="login-invalid-email">Inavalid Email !</span></label>
+                <input type="email" name="email" id="login-email" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@gmail.com" required />
             </div>
             <div class="mb-5">
-                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input type="password" name="password" id="password" class=" outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm  focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" required />
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password <span class="pl-5 text-red-500 font-light hidden" id="login-invalid-password"></span></label></label>
+                <input type="password" name="password" id="login-password" class=" outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm  focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" required />
             </div>
             <div class="flex items-center justify-between mb-5">
                 <div class="flex items-center h-5">

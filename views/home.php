@@ -2,13 +2,11 @@
 
     session_start();
 
-    if(isset($_SESSION['id_user']) && isset($_SESSION['role'])){
-            header('location: ./home.php');
+    if(!isset($_SESSION['id_user']) && !isset($_SESSION['role'])){
+            header('location: ./index.php');
             exit;
     }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,8 +46,8 @@
                     <a href="./lawyers.php">Our Lawyers</a>
                 </li>
 
-                <a href="./login.php"><button class="bg-[#01FF70] text-black font-semibold py-2 px-5 mx-4 rounded-sm duration-500 hover:scale-105 hover:bg-transparent hover:border hover:text-white">
-                    LOGIN
+                <a href="./logout.php"><button class="bg-[#01FF70] text-black font-semibold py-2 px-5 mx-4 rounded-sm duration-500 hover:scale-105 hover:bg-transparent hover:border hover:text-white">
+                    DECONNEXION
                 </button></a>
             </ul>
         </nav>

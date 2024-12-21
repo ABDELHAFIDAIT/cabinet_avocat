@@ -85,6 +85,12 @@
     }
 
     mysqli_close($conn);
+
+
+    if(isset($_SESSION['id_user']) && isset($_SESSION['role'])){
+        header('location: ./home.php');
+        exit;
+    }
 ?>
 
 
@@ -136,15 +142,15 @@
 
     <!-- FORMULAIRE DE SIGN UP -->
     <main>
-        <form method="POST" action="" class="max-w-md mx-auto px-5 py-20">
+        <form id="signup-form" method="POST" action="" class="max-w-md mx-auto px-5 py-20">
             <!-- CHAMPS NOM & PRENOM -->
             <div class="mb-5 flex gap-5 w-[100%]">
                 <div class="w-[50%]">
-                    <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                    <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom <span class="pl-5 text-red-500 font-light hidden" id="invalid-nom">Invalide !</span></label>
                     <input type="text" name="nom" id="nom" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Jackson" required />
                 </div>
                 <div class="w-[50%]">
-                    <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom</label>
+                    <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom <span class="pl-5 text-red-500 font-light hidden" id="invalid-prenom">Invalide !</span></label>
                     <input type="text" name="prenom" id="prenom" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Peter" required />
                 </div>
             </div>
@@ -172,23 +178,23 @@
                         </select>
                     </div>
                     <div class="w-[30%]">
-                        <label for="experience" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expérience</label>
-                        <input type="number" name="experience" id="experience" min="1" max="30" value="1" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        <label for="experience" class="block mb-2 text-sm font-medium text-gray-900 text-white" id="invalid-exp">Expérience</label>
+                        <input type="number" name="experience" id="experience" min="1" max="30" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                     </div>
                 </div>
                 <div class="mb-5">
-                    <label for="biography" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biographie</label>
+                    <label for="biography" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biographie <span class="pl-5 text-red-500 font-light hidden" id="invalid-bio">Bio est très Courte !</span></label>
                     <textarea id="biography" name="biography" rows="4" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Entrer Votre Biographie Ici..."></textarea>
                 </div>
             </div>
             <!-- CHAMPS EMAIL -->
             <div class="mb-5">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email <span class="pl-5 text-red-500 font-light hidden" id="invalid-email">Email Invalide !</span></label>
                 <input type="email" name="signup_email" id="signup_email" class="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: peter.jackson@gmail.com" required />
             </div>
             <!-- CHAMPS PASSWORD -->
             <div class="mb-5">
-                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password <span class="pl-5 text-red-500 font-light hidden" id="invalid-password">Mot de Passe Faible !</span></label>
                 <input type="password" name="password" id="password" class=" outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm  focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" required />
             </div>
             <button type="submit" name="signup" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-sm text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">SIGN UP</button>
