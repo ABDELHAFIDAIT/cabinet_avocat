@@ -328,16 +328,18 @@
                 <div class="px-6 py-4 bg-[#02101f] text-white">
                     <h1 class="text-lg font-medium">Réserver une Consultation</h1>
                 </div>
-                <form id="booking-form" class="px-6 py-4 bg-[#001F3F]" method="" action="">
+                <form id="booking-form" class="px-6 py-4 bg-[#001F3F]" method="POST" action="./booking.php">
                     <div class="mb-4">
                         <label class="block text-gray-300 font-medium mb-2" for="card-number">
                             Avocat
                         </label>
-                        <select
+                        <select name="avocat"
                             class="appearance-none border border-black rounded-sm w-full py-2 px-3 text-black leading-tight focus:outline-none font-medium"
-                            id="avocat-name" type="text" placeholder="**** **** **** ****">
+                            id="avocat-name" type="text">
                             <?php
                                 require "../config/db.php";
+
+                                // session_start();
 
                                 if(isset($_SESSION['id_user']) && isset($_SESSION['role']) && $_SESSION['role'] == 'Client'){
                                     $requete = "SELECT infos_avocat.id_avocat, users.nom, users.prenom FROM users JOIN infos_avocat ON users.id_user = infos_avocat.id_avocat";
@@ -357,7 +359,7 @@
                                                 $avocat_full_name = $avocats['prenom']. ' ' .$avocats['nom'];
                                                 $id_avocat = $avocats['id_avocat'];
 
-                                                echo "<option class='text-black bg-blue-200' value='$id_avocat'>{$avocat_full_name}</option>";
+                                                echo "<option class='text-black bg-blue-200' value='$id_avocat'>{$id_avocat} {$avocat_full_name}</option>";
                                             }
                                         }
 
@@ -381,7 +383,7 @@
                     </div>
 
                     <div class="flex justify-evenly pt-5">
-                        <button type="button" id="confirm-book" class="bg-[#01FF70] text-black font-medium py-2 px-4 rounded-sm hover:px-5 duration-200">
+                        <button type="submit" name="confirm" id="confirm-book" class="bg-[#01FF70] text-black font-medium py-2 px-4 rounded-sm hover:px-5 duration-200">
                             Confirmer
                         </button>
                         <button id="cancel-book" type="button" class="border border-white text-white font-medium py-2 px-4 hover:px-5 duration-200 rounded-sm">
@@ -396,9 +398,5 @@
 
 
     <script src="../assets/js/script.js"></script>
-
-    <script>
-        
-    </script>
 </body>
 </html>

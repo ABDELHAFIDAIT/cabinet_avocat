@@ -144,14 +144,6 @@ openBookingPopup.addEventListener('click', function(){
     bookingPopup.classList.remove('hidden');
 });
 
-confirmBooking.addEventListener('click', function(){
-    const dateBooking =document.getElementById('booking-date').value;
-    if(dateBooking){
-        bookingPopup.classList.add('hidden');
-        bookingForm.reset();
-    }
-});
-
 cancelBooking.addEventListener('click', function(){
     bookingPopup.classList.add('hidden');
     bookingForm.reset();
