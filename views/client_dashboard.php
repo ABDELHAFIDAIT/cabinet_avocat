@@ -59,7 +59,7 @@
                 <a href="./logout.php"><button class="text-sm pl-5 pr-2 underline duration-500 hover:text-[#01FF70]">
                     DECONNEXION
                 </button></a>
-                <a href="#"><img class="rounded-full border-2 border-[#01FF70] w-14" src="../assets/img/client.jpg" alt="Image du Client"></a>
+                <a href="./client/profile.php"><img class="rounded-full border-2 border-[#01FF70] w-14" src="../assets/img/client.jpg" alt="Image du Client"></a>
             </div>
         </nav>
     </header>
@@ -301,7 +301,7 @@
                                                 <td class='px-6 py-4 whitespace-nowrap'>{$date}</td>
                                                 <td class='px-6 py-4 whitespace-nowrap'>{$statut}</td>
                                                 <td class='px-6 py-4 whitespace-nowrap'>
-                                                    <a href='#'><button class='ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out'>Supprimer</button></a>
+                                                    <a href='./client/delete.php?id=$id_reservation'><button class='ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out'>Supprimer</button></a>
                                                 </td>
                                             </tr>
                                             ";
@@ -320,15 +320,13 @@
             </div>
         </section>
 
-
-
         <!-- BOOKING FORM -->
         <section id="booking-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 hidden">
             <div class="max-w-sm lg:w-[60vw] mx-auto rounded-sm overflow-hidden">
                 <div class="px-6 py-4 bg-[#02101f] text-white">
                     <h1 class="text-lg font-medium">Réserver une Consultation</h1>
                 </div>
-                <form id="booking-form" class="px-6 py-4 bg-[#001F3F]" method="POST" action="./booking.php">
+                <form id="booking-form" class="px-6 py-4 bg-[#001F3F]" method="POST" action="./client/booking.php">
                     <div class="mb-4">
                         <label class="block text-gray-300 font-medium mb-2" for="card-number">
                             Avocat

@@ -148,9 +148,7 @@
 <?php
     session_start();
 
-    require_once "../config/db.php";
-
-    print_r($_POST);
+    require_once "../../config/db.php";
 
     if(isset($_SESSION["id_user"]) && isset($_POST['confirm'])){
 
@@ -170,7 +168,7 @@
 
         if(mysqli_stmt_execute($stmt)){
             mysqli_stmt_close($stmt);
-            header("location: ./client_dashboard.php#booking");
+            header("location: ../client_dashboard.php#booking");
             exit();
         }else{
             die("Failed to Execute Statment". mysqli_stmt_error($stmt));
