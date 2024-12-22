@@ -40,10 +40,17 @@
                     <a href="#">Home</a>
                 </li>
                 <li class="mx-4 my-6 md:my-0 md:text-lg hover:text-[#01FF70] duration-500 font-medium">
-                    <a href="#">Services</a>
-                </li>
-                <li class="mx-4 my-6 md:my-0 md:text-lg hover:text-[#01FF70] duration-500 font-medium">
-                    <a href="./lawyers.php">Our Lawyers</a>
+                    <a href="
+                        <?php
+                            if(isset($_SESSION['id_user'])){
+                                if($_SESSION['role'] == 'Client'){
+                                    echo './client_dashboard.php';
+                                }else{
+                                    echo './avocat_dashboard.php';
+                                }
+                            }
+                        ?>
+                    ">Dashboard</a>
                 </li>
 
                 <a href="./logout.php"><button class="bg-[#01FF70] text-black font-semibold py-2 px-5 mx-4 rounded-sm duration-500 hover:scale-105 hover:bg-transparent hover:border hover:text-white">

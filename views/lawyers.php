@@ -9,18 +9,6 @@
     <title>LexAdvisor - Home Page</title>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-    <style>
-        /* @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        } */
-    </style>
-
-
 </head>
 <body>
     <!-- HEADER SECTION -->
@@ -85,25 +73,6 @@
     ?>
 
     <script src="../assets/js/script.js"></script>
-    <script>
-        // Toggle dark mode based on system preference
-        // if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        //     document.documentElement.classList.add('dark');
-        // }
-
-        // // Add hover effect to skill tags
-        // const skillTags = document.querySelectorAll('.bg-indigo-100');
-        // skillTags.forEach(tag => {
-        //     tag.addEventListener('mouseover', () => {
-        //         tag.classList.remove('bg-indigo-100', 'text-indigo-800');
-        //         tag.classList.add('bg-blue-900', 'text-white');
-        //     });
-        //     tag.addEventListener('mouseout', () => {
-        //         tag.classList.remove('bg-blue-900', 'text-white');
-        //         tag.classList.add('bg-indigo-100', 'text-indigo-800');
-        //     });
-        // });
-    </script>
 </body>
 </html>
     

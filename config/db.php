@@ -11,6 +11,4 @@
     }
 
     mysqli_set_charset($conn, "utf8mb4");
-
-    echo "<script>alert(Connexion Réussie !)</script>";
 ?>
